@@ -6,7 +6,6 @@ import { useCategories } from "../hooks/useCategories"
 import { useMemoContext } from "../context/memoContext"
 import Memos from "./memo/Memos"
 
-
 const MemoApp = () => {
   const { accessToken, accessTokenValid, loggedIn, setLoggedIn, handleAccessTokenChange } = useLogin()
   const { data: cats, isLoading: catsLoading, error: catsError } = useCategories(accessToken, loggedIn)
