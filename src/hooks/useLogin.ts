@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { getCategories } from "../api/api"
+import { useEffect, useState } from "react"
 import { uuid } from "../utils/generateAccessToken"
 import { isAccessTokenValid } from "../utils/isTokenValid"
 
 export const useLogin = () => {
   const [ accessToken, setAccessToken ] = useState('')
   const [ accessTokenValid, setAccessTokenValid ] = useState(false)
+  const [ loggedIn, setLoggedIn ] = useState(false)
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,21 +20,16 @@ export const useLogin = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  const onLoginClick = async () => {
-    if (!accessToken) return
-    const data = await getCategories(accessToken)
-    console.log("here is data: ", data)
-  }
-
-  const handleAccessTokenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAccessToken(e.target.value)
-    setAccessTokenValid(isAccessTokenValid(e.target.value))
+  const handleAccessTokenChange = (token: string) => {
+    setAccessToken(token)
+    setAccessTokenValid(isAccessTokenValid(token))
   }
 
   return {
+    loggedIn,
     accessToken,
     accessTokenValid,
-    onLoginClick,
+    setLoggedIn,
     handleAccessTokenChange
   }
 }
