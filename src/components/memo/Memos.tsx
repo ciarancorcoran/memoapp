@@ -33,9 +33,7 @@ const Memos: React.FC<MemosProps> = ({ accessToken, cats, catsLoading, catsError
   const { selectedCat, selectedMemo, setSelectedMemo, setSelectedCat } = useMemoContext()
   const { data: memos, isLoading: memosLoading, error: memosError } = useGetMemos(accessToken, selectedCat, !!selectedCat)
   const { data: memo } = useGetSelectedMemo(accessToken, selectedMemo, !!selectedMemo)
-  const { mutate: addNewMemo } = useAddMemo(({id}) => {
-    setSelectedMemo(id)
-  })
+  const { mutate: addNewMemo } = useAddMemo()
 
   const handleCatClick = (id: number) => {
     setSelectedCat(selectedCat === id ? undefined : id)
@@ -53,7 +51,7 @@ const Memos: React.FC<MemosProps> = ({ accessToken, cats, catsLoading, catsError
       catId: selectedCat,
       title: "New Memo",
       content: " "
-    })
+    }, { onSuccess: (memo: Memo) => setSelectedMemo(memo.id)})
 
   }
 

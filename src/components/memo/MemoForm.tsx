@@ -65,22 +65,22 @@ const MemoForm: React.FC<MemoFormProps> = ({ categoryId, memo, accessToken }) =>
           onChange={handleContentChange}
         />
       </div>
-      <Button
-        disabled={!memo?.id}
-        id="save-memo"
-        type="submit"
-        className="self-start bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition"
-      >
-        Save
-      </Button>
-      <Button
-        disabled={!memo?.id}
-        id="delete-memo"
-        onClick={handleDelete}
-        className="self-start bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition"
-      >
-        Delete
-      </Button>
+      <div className="flex gap-2">
+        <Button
+          disabled={!memo?.id}
+          id="save-memo"
+          type="submit"
+          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition">
+          Save
+        </Button>
+        <Button
+          disabled={!memo?.id}
+          id="delete-memo"
+          onClick={handleDelete}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded transition">
+          Delete
+        </Button>
+      </div>
     </form>
   )
 }

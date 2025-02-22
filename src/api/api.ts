@@ -93,11 +93,11 @@ export const addMemo = async (accessToken: string, id: number, title: string, co
   })
 
   if (!result.ok) {
-    throw new Error('Failed to update memo')
+    throw new Error('Failed to add memo')
   }
 
 
-  return result
+  return result.json()
 }
 
 export const deleteMemo = async (accessToken: string, id: number) => {
@@ -111,7 +111,7 @@ export const deleteMemo = async (accessToken: string, id: number) => {
   })
 
   if (!result.ok) {
-    throw new Error('Failed to update memo')
+    throw new Error('Failed to delete memo')
   }
 
 
