@@ -1,26 +1,22 @@
 import React from "react"
 import Login from "./auth/Login"
 import { useLogin } from "../hooks/useLogin"
-import { isAccessTokenValid } from "../utils/isTokenValid"
 import { useCategories } from "../hooks/useCategories"
 import { useMemoContext } from "../context/memoContext"
 import Memos from "./memo/Memos"
 
 const MemoApp = () => {
-  const { accessToken, accessTokenValid, loggedIn, setLoggedIn, handleAccessTokenChange } = useLogin()
-  const { data: cats, isLoading: catsLoading, error: catsError } = useCategories(accessToken, loggedIn)
+  const { accessToken, submittedToken, accessTokenValid, loggedIn, loginClicked, handleAccessTokenChange } = useLogin()
+  const { data: cats, isLoading: catsLoading, error: catsError } = useCategories(submittedToken, loggedIn)
   const { setSelectedCat } = useMemoContext()
 
   const onLoginClick = () => {
     if (!accessToken) return
-    setLoggedIn(true)
+    loginClicked()
     setSelectedCat(undefined)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isAccessTokenValid(e.target.value)) {
-      return
-    }
     handleAccessTokenChange(e.target.value)
   }
 

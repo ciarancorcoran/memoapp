@@ -5,7 +5,7 @@ export const useCategories = (token: string, loggedIn: boolean) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['categories', token],
     queryFn: () => getCategories(token),
-    enabled: !!loggedIn
+    enabled: !!loggedIn && !!token
   })
 
   return { data, isLoading, error }

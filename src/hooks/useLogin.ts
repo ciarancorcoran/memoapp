@@ -6,6 +6,7 @@ export const useLogin = () => {
   const [ accessToken, setAccessToken ] = useState('')
   const [ accessTokenValid, setAccessTokenValid ] = useState(false)
   const [ loggedIn, setLoggedIn ] = useState(false)
+  const [ submittedToken, setSubmittedToken ] = useState('')
 
 
   useEffect(() => {
@@ -25,11 +26,17 @@ export const useLogin = () => {
     setAccessTokenValid(isAccessTokenValid(token))
   }
 
+  const loginClicked = () =>{
+    setSubmittedToken(accessToken)
+    setLoggedIn(true)
+  }
+
   return {
     loggedIn,
     accessToken,
     accessTokenValid,
-    setLoggedIn,
+    submittedToken,
+    loginClicked,
     handleAccessTokenChange
   }
 }

@@ -1,17 +1,18 @@
 import React, { useState } from "react"
 import { Memo } from "./Memos"
 import { useUpdateMemo } from "../../hooks/useUpdateMemo"
+import Button from "../button/Button"
 
 interface MemoFormProps {
+  categoryId: number
   memo?: Memo
   accessToken: string
 }
 
-const MemoForm: React.FC<MemoFormProps> = ({ memo, accessToken }) => {
+const MemoForm: React.FC<MemoFormProps> = ({ categoryId, memo, accessToken }) => {
   const [title, setTitle] = useState(memo?.title || "")
   const [content, setContent] = useState(memo?.content || "")
-  const [saving, setSaving] = useState(false)
-  const { mutateAsync } = useUpdateMemo()
+  const { mutate: saveMemo } = useUpdateMemo()
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
@@ -19,20 +20,13 @@ const MemoForm: React.FC<MemoFormProps> = ({ memo, accessToken }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    setSaving(true)
-
-    try {
-      await mutateAsync({
-        accessToken,
-        memoId: memo?.id!,
-        title,
-        content,
-      })
-    } catch (err) {
-      console.error('Error updating memo:', err)
-    } finally {
-      setSaving(false)
-    }
+    saveMemo({
+      token: accessToken,
+      memoId: memo?.id!,
+      catId: categoryId,
+      title,
+      content,
+    })
   }
 
   return (
@@ -65,14 +59,14 @@ const MemoForm: React.FC<MemoFormProps> = ({ memo, accessToken }) => {
           onChange={handleContentChange}
         />
       </div>
-      <button
-        disabled={saving || !memo?.id}
+      <Button
+        disabled={!memo?.id}
         id="save-memo"
         type="submit"
-        className={`bg-green-500 text-white py-2 px-4 rounded transition ${!memo?.id ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-600'}`}
+        className="self-start bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded transition"
       >
-        {saving ? 'Saving...' : 'Save'}
-      </button>
+        Save
+      </Button>
     </form>
   )
 }

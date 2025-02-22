@@ -24,7 +24,7 @@ const CategoryItem: React.FC<CategoryProps> = ({ cat, selectedCat, memos, memosL
   return (
     <div key={cat.id}>
       <li
-        className={ `p-3 text-gray-700 cursor-pointer transition duration-200 ${selected ? 'text-blue-500' : ''}
+        className={`p-3 bg-gray-200 text-gray-700 cursor-pointer transition duration-200 ${selected && 'text-blue-500'}
         hover:bg-gray-200`}
         id={`category-${cat.id}`}
         onClick={() => handleCatClick(cat.id)}>
