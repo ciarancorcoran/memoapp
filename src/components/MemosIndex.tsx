@@ -24,6 +24,7 @@ const MemoApp = () => {
     <>
       <Login
         accessToken={accessToken}
+        loggedIn={loggedIn}
         accessTokenValid={accessTokenValid}
         handleInputChange={handleInputChange}
         onLoginClick={onLoginClick}
