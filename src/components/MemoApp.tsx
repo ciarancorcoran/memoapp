@@ -1,9 +1,9 @@
 import React from "react"
 import Login from "./auth/Login"
+import Memos from "./memo/Memos"
 import { useLogin } from "../hooks/useLogin"
 import { useCategories } from "../hooks/useCategories"
 import { useMemoContext } from "../context/memoContext"
-import Memos from "./memo/Memos"
 
 const MemoApp = () => {
   const { accessToken, submittedToken, accessTokenValid, loggedIn, loginClicked, handleAccessTokenChange } = useLogin()
@@ -29,7 +29,7 @@ const MemoApp = () => {
         onLoginClick={onLoginClick}
       />
       { loggedIn && <Memos
-          accessToken={accessToken}
+          accessToken={submittedToken}
           loggedIn={loggedIn}
           cats={cats}
           catsLoading={catsLoading}

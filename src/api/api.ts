@@ -99,3 +99,21 @@ export const addMemo = async (accessToken: string, id: number, title: string, co
 
   return result
 }
+
+export const deleteMemo = async (accessToken: string, id: number) => {
+
+  const result = await fetch(`${BASE_URL}/memo/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': accessToken
+    }
+  })
+
+  if (!result.ok) {
+    throw new Error('Failed to update memo')
+  }
+
+
+  return result
+}
