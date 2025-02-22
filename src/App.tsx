@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import MemoApp from './components/MemoApp';
+import MemoApp from './components/MemosIndex';
 import './App.css';
 import { MemoProvider } from './context/memoContext';
 

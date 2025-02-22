@@ -1,6 +1,6 @@
 import React from "react"
 import Login from "./auth/Login"
-import Memos from "./memo/Memos"
+import Memos from "./memos/Memos"
 import { useLogin } from "../hooks/useLogin"
 import { useCategories } from "../hooks/useCategories"
 import { useMemoContext } from "../context/memoContext"

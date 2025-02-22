@@ -1,10 +1,10 @@
-import { render, fireEvent, waitFor } from "@testing-library/react"
+import { render, fireEvent, waitFor, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { getCategories } from "../../api/api"
 import { isAccessTokenValid } from "../../utils/isTokenValid"
 import { uuid } from "../../utils/generateAccessToken"
-import MemoApp from "../MemoApp"
-import { MemoProvider } from "../../context/memoContext" 
+import MemoApp from "../MemosIndex"
+import { MemoProvider } from "../../context/memoContext"
 
 jest.mock('../../api/api')
 jest.mock('../../utils/isTokenValid')
@@ -44,15 +44,15 @@ describe("Login", () => {
   }
 
   it("disables login button when token is invalid", () => {
-    const { getByTestId } = renderWithProviders(<MemoApp />)
-    const button = getByTestId("login") as HTMLButtonElement
+    renderWithProviders(<MemoApp />)
+    const button = screen.getByTestId("login") as HTMLButtonElement
     expect(button).toBeDisabled()
   })
 
   it("generates a valid access token after 1000ms", async () => {
-    const { getByTestId } = renderWithProviders(<MemoApp />)
+    renderWithProviders(<MemoApp />)
 
-    const input = getByTestId("access_token") as HTMLInputElement
+    const input = screen.getByTestId("access_token") as HTMLInputElement
 
     expect(input.value).toBe("")
 
@@ -62,9 +62,9 @@ describe("Login", () => {
   })
 
   it("calls API on login button click with valid token", async () => {
-    const { getByTestId } = renderWithProviders(<MemoApp />)
-    const input = getByTestId("access_token") as HTMLInputElement
-    const button = getByTestId("login") as HTMLButtonElement
+    renderWithProviders(<MemoApp />)
+    const input = screen.getByTestId("access_token") as HTMLInputElement
+    const button = screen.getByTestId("login") as HTMLButtonElement
 
     fireEvent.change(input, { target: { value: testUuid } })
     expect(button).not.toBeDisabled()
