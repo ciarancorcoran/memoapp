@@ -16,9 +16,7 @@ const MemoApp = () => {
     setSelectedCat(undefined)
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleAccessTokenChange(e.target.value)
-  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => handleAccessTokenChange(e.target.value)
 
   return (
     <>
@@ -29,12 +27,12 @@ const MemoApp = () => {
         handleInputChange={handleInputChange}
         onLoginClick={onLoginClick}
       />
-      { loggedIn && <Memos
-          accessToken={submittedToken}
-          loggedIn={loggedIn}
-          cats={cats}
-          catsLoading={catsLoading}
-          catsError={catsError} /> }
+      <Memos
+        accessToken={submittedToken}
+        loggedIn={loggedIn}
+        cats={cats}
+        catsLoading={catsLoading}
+        catsError={catsError} />
     </>
   )
 }
